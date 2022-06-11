@@ -14,8 +14,8 @@
 <script>
 	import Form  from '../components/Form';
 	export default {
-      components: {Form},  
-    };
+		components: {Form},  
+	};
 </script>
 ```
 
@@ -62,94 +62,126 @@
 
 2.validator 自定义校验 function(rule, value, callback)：
 
-在rules中添加	{validator:function(rule, value, callback){
-                              	if (value != '123') {
-                                    	callback(new Error('请输入123！'));
-                              	}else{
-                                    	callback();
-                              	}
-                        	}}
-
-如下。
+在rules中添加如下代码：
+```javascript
+{
+    validator: function(rule, value, callback) {
+        if (value != '123') {
+            callback(new Error('请输入123！'));
+        } else {
+            callback();
+        }
+    }
+}
+```
 
 3.是否为必填：
 
-在rules中添加 { required: true, message: '请输入' }，如下。
+在rules中添加 { required: true, message: '请输入' }。
 
-
-
-（3）维护页面的formItems内容的js文件，如下 是我创建的 formData.js文件内容：
+（3）维护页面的formItems内容的js文件，如下是我创建的 formData.js文件内容：
 
 ```javascript
 const test = {
-		mode					: 'readOnly', // readOnly 只读 | edit 编辑
-		formItem 				: [
-            {
-      		type			: 'a-input',//type为'a-input'，在页面中会生成一个input输入框
-      		label			: '',//标题
-      		id				: '',//表单的id，一般使用数据的字段名称，如'name','age'
-      		class			: '',//表单中formItem的class属性，用于设置样式，目前可使用的为'hide'（隐藏此表单对象）
-      		labelCol		: 6,//栅格形式的布局，一行为24，labelCol为输入框标题占用的栅格数
-      		wrapperCol		: 10,//wrapperCol为表单（例如输入框）占用的栅格数
-      		rules			: [{ required: true, message: '请输入' }],//表单的校验规则，required：true|false,true为必填项，false为非必填
-      		placeholder		: '请输入',//默认内容
-      		readOnly		: false,//是否为只读格式，true为只读，false为非只读。
-      		//maxLength		: 100,	//最大长度（可选属性，在使用栅格时无效，一般不用）
-      		allowClear		: false,//是否出现清除按钮
-            prefix			: '',//带有前缀图标的 input 	string|slot	(11月10新增)
-            suffix			: '',//带有后缀图标的 input 	string|slot	(11月10新增)
-      		change			: '',//change事件的方法名，在页面中定义方法
-      		md    			: 24,//栅格布局，一般为 8|12|24 （8：一行三个表单对象，12一行两个，24一行一个）注意！在设置隐藏此表单对象时需要删除此属性，否则该表单还会占用页面空间
-      	},
-			{
-	      		type			: 'a-input',
-	      		label			: '用户账号111',
-	      		id				: 'USR_USERNAME',
-	      		class			: '',
-	      		labelCol		: 10,
-	      		wrapperCol		: 14,
-	      		// initialValue	: '',
-	      		rules			: [{validator:function(rule, value, callback){
-                              if (value != '123') {
-                                    callback(new Error('请输入123！'));
-                              }else{
-                                    callback();
-                              }
-                        }},{type: 'email', message: '请输入正确的邮箱格式!',},{ required: true, message: '请输入' }],
-	      		placeholder		: '请输入',
-	      		readOnly		: false,
-	      		maxLength		: 100,
-	      		allowClear		: false,
-	      		change			: '',
-	      		md    			: 12,
-	      	},
-	      	{
-	      		type			: 'a-cascader',								
-				label			: '所属部门',										
-				id				: 'GRP_NAME',										
-				class			: '',										
-				labelCol		: 10,										
-				wrapperCol		: 14,																		
-				rules			: [{ required: true, message: '请选择' }],	
-				placeholder		: '请选择',									
-				allowClear		: false,									
-				disabled 		: false,									
-				changeOnSelect  : false,			
-				expandTrigger	: 'hover', 									
-				displayRender	: function({labels}){						
-					return labels[labels.length - 1];
-				},
-				change			: '',										
-				md    			: 12,
-	      	},
-		],
-		init 					: {	//初始化表单数据，可在js配置，也可在页面中动态设置
-			key 				: ... //key为表单所对应的id
-            GRP_NAME:		[]
+	mode: 'readOnly',
+	// readOnly 只读 | edit 编辑
+	formItem: [{
+		type: 'a-input',
+		//type为'a-input'，在页面中会生成一个input输入框
+		label: '',
+		//标题
+		id: '',
+		//表单的id，一般使用数据的字段名称，如'name','age'
+		class: '',
+		//表单中formItem的class属性，用于设置样式，目前可使用的为'hide'（隐藏此表单对象）
+		labelCol: 6,
+		//栅格形式的布局，一行为24，labelCol为输入框标题占用的栅格数
+		wrapperCol: 10,
+		//wrapperCol为表单（例如输入框）占用的栅格数
+		rules: [{
+			required: true,
+			message: '请输入'
+		}],
+		//表单的校验规则，required：true|false,true为必填项，false为非必填
+		placeholder: '请输入',
+		//默认内容
+		readOnly: false,
+		//是否为只读格式，true为只读，false为非只读。
+		//maxLength		: 100,	//最大长度（可选属性，在使用栅格时无效，一般不用）
+		allowClear: false,
+		//是否出现清除按钮
+		prefix: '',
+		//带有前缀图标的 input 	string|slot	(11月10新增)
+		suffix: '',
+		//带有后缀图标的 input 	string|slot	(11月10新增)
+		change: '',
+		//change事件的方法名，在页面中定义方法
+		md: 24,
+		//栅格布局，一般为 8|12|24 （8：一行三个表单对象，12一行两个，24一行一个）注意！在设置隐藏此表单对象时需要删除此属性，否则该表单还会占用页面空间
+	},
+	{
+		type: 'a-input',
+		label: '用户账号111',
+		id: 'USR_USERNAME',
+		class: '',
+		labelCol: 10,
+		wrapperCol: 14,
+		// initialValue	: '',
+		rules: [{
+			validator: function(rule, value, callback) {
+				if (value != '123') {
+					callback(new Error('请输入123！'));
+				} else {
+					callback();
+				}
+			}
 		},
-	};
+		{
+			type: 'email',
+			message: '请输入正确的邮箱格式!',
+		},
+		{
+			required: true,
+			message: '请输入'
+		}],
+		placeholder: '请输入',
+		readOnly: false,
+		maxLength: 100,
+		allowClear: false,
+		change: '',
+		md: 12,
+	},
+	{
+		type: 'a-cascader',
+		label: '所属部门',
+		id: 'GRP_NAME',
+		class: '',
+		labelCol: 10,
+		wrapperCol: 14,
+		rules: [{
+			required: true,
+			message: '请选择'
+		}],
+		placeholder: '请选择',
+		allowClear: false,
+		disabled: false,
+		changeOnSelect: false,
+		expandTrigger: 'hover',
+		displayRender: function({
+			labels
+		}) {
+			return labels[labels.length - 1];
+		},
+		change: '',
+		md: 12,
+	},
+	],
+	init: { //初始化表单数据，可在js配置，也可在页面中动态设置
+		key: '...' //key为表单所对应的id like GRP_NAME:[]
+	},
+};
 export default {
-    test,
+	test,
 };
 ```
 
@@ -158,10 +190,10 @@ export default {
 ```vue
 <script>
 	import Form  from '../components/Form';
-    import formData from '@/mock/common/formData';
+    	import formData from '@/mock/common/formData';
 	export default {
-      components: {Form},  
-    };
+      		components: {Form},  
+    	};
 </script>
 ```
 
@@ -170,15 +202,15 @@ export default {
 ```vue
 <script>
 	import Form  from '../components/Form';
-    import formData from '@/mock/common/formData';
+    	import formData from '@/mock/common/formData';
 	export default {
-      components: {Form},  
-      data () {
-        return {
-          	formItems: formData.test,
-      	}
-  	  },
-    };
+      		components: {Form},  
+      		data () {
+        		return {
+          			formItems: formData.test,
+      			}
+  	  	},
+    	};
 </script>
 ```
 
@@ -187,27 +219,27 @@ export default {
 ```vue
 <script>
 	import Form  from '../components/Form';
-    import formData from '@/mock/common/formData';
+    	import formData from '@/mock/common/formData';
 	export default {
-      components: {Form},
-      data () {
-        return {
-              	formItems: [],
-            	form: null,
-            }
-        },
-        activated(){
-            this.createForm();
-        },
-        methods: {
-            /**
-             * 获取Form组件中的form对象
-             */
-            createForm(){
-                this.form = this.$refs.Form.form;
-            },
-        }
-    };
+      		components: {Form},
+      		data () {
+        		return {
+              			formItems: [],
+            			form: null,
+            		}
+        	},
+        	activated(){
+            		this.createForm();
+        	},
+        	methods: {
+		    /**
+		     * 获取Form组件中的form对象
+		     */
+		    createForm(){
+			this.form = this.$refs.Form.form;
+		    },
+        	}
+    	};
 </script>
 ```
 
